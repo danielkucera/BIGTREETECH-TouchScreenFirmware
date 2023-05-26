@@ -6,7 +6,6 @@ on:
     - readme/**
     - '**/*.md'
     tags:
-      - v*
   pull_request:
 
 jobs:
