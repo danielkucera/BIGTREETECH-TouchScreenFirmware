@@ -120,19 +120,16 @@ jobs:
       - name: Build MKS TFT35 V1.0
         run: platformio run --environment MKS_TFT35_V1_0
 
-      - name: Remove Old Binaries
-        run: find "Copy to SD Card root directory to update/" -name '*.bin' -print -delete
-
-      - name: Remove Old Config
-        run: find "Copy to SD Card root directory to update/" -name 'config*.ini' -print -delete
+      - name: Mkdir sdcard_root
+        run: mkdir sdcard_root
 
       - name: Copy New Binaries
-        run: find .pio/build/ -name '*.bin' -exec cp -vf '{}' "./Copy to SD Card root directory to update/" ";"
+        run: find .pio/build/ -name '*.bin' -exec cp -vf '{}' "./sdcard_root/" ";"
 
       - name: Copy New Config
-        run: find TFT/src/User/ -name 'config*.ini' -exec cp -vf '{}' "./Copy to SD Card root directory to update/" ";"
+        run: find TFT/src/User/ -name 'config*.ini' -exec cp -vf '{}' "./sdcard_root/" ";"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: "./Copy to SD Card root directory to update/"
+          path: "./sdcard_root/"
