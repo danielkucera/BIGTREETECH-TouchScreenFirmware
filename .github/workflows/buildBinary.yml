@@ -129,18 +129,7 @@ jobs:
       - name: Copy New Config
         run: find TFT/src/User/ -name 'config*.ini' -exec cp -vf '{}' "./Copy to SD Card root directory to update/" ";"
 
-      - name: Stage New Binaries
-        run: |
-          find "Copy to SD Card root directory to update/" -name '*.bin' -exec git add {} \;
-
-      - name: Stage New Config
-        run: |
-          find "Copy to SD Card root directory to update/" -name 'config*.ini' -exec git add {} \;
-
-      - name: Push
-        uses: actions-x/commit@v6
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
         with:
-          email: 38851044+bigtreetech@users.noreply.github.com
-          name: bigtreetech
-          message: 📦️ Update prebuilt binaries and config
-          token: ${{ secrets.MY_SECRET_TOKEN }}
+          path: "./Copy to SD Card root directory to update/"
